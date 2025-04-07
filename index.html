@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gym Game</title>
+  <!-- Include the p5.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="leaderboard.js"></script>
+  <script src="sketch.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #1a1a1a;
+      font-family: Arial, sans-serif;
+    }
+    canvas {
+      display: block;
+    }
+    #emailForm {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      text-align: center;
+      z-index: 1000;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+      border: 2px solid #ff0000;
+    }
+    #emailForm h2 {
+      color: #ff0000;
+      margin-bottom: 20px;
+      font-size: 28px;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+    #emailForm p {
+      color: #ffffff;
+      margin-bottom: 25px;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+    #emailForm input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 200px;
+      border-radius: 5px;
+      border: none;
+    }
+    .consent-container {
+      margin: 15px 0;
+      text-align: left;
+      font-size: 14px;
+    }
+    .consent-container input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    button:hover {
+      background-color: #cc0000;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div id="emailForm">
+    <h2>Game Over!</h2>
+    <p>Enter your information to save your score:</p>
+    <input type="text" id="playerNameInput" placeholder="Your name (optional)">
+    <input type="email" id="emailInput" placeholder="Your email">
+    <div class="consent-container">
+      <input type="checkbox" id="listservConsent" required>
+      <label for="listservConsent">I agree to join the creator's listServ for updates and announcements</label>
+    </div>
+    <button onclick="submitEmail()">Submit</button>
+  </div>
+</body>
+</html>
