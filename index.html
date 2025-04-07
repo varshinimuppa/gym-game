@@ -92,5 +92,26 @@
     </div>
     <button onclick="submitEmail()">Submit</button>
   </div>
+  
+  <!-- Button to manually show leaderboard if needed -->
+  <button id="manualShowLeaderboard" style="position: fixed; top: 10px; right: 10px; z-index: 1001; display: none;">Show Leaderboard</button>
+  
+  <script>
+    // Add a manual way to show the leaderboard
+    document.addEventListener('DOMContentLoaded', function() {
+      const manualBtn = document.getElementById('manualShowLeaderboard');
+      if (manualBtn) {
+        manualBtn.addEventListener('click', function() {
+          console.log('Manual leaderboard button clicked');
+          if (window.leaderboardFunctions && typeof window.leaderboardFunctions.showLeaderboardUI === 'function') {
+            window.leaderboardFunctions.showLeaderboardUI();
+          } else {
+            console.error('Leaderboard functions not available');
+            alert('Leaderboard not available. Try refreshing the page.');
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>

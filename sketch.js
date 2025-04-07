@@ -121,6 +121,13 @@ function setup() {
     // Check Supabase availability
     checkSupabase();
     
+    // Check if leaderboard functions are available
+    console.log('Checking leaderboard functions availability:');
+    console.log('window.leaderboardFunctions exists:', typeof window.leaderboardFunctions !== 'undefined');
+    if (typeof window.leaderboardFunctions !== 'undefined') {
+      console.log('Available leaderboard functions:', Object.keys(window.leaderboardFunctions));
+    }
+    
     // Initialize Supabase and run tests
     console.log('Starting Supabase initialization...');
     if (initSupabase()) {
@@ -130,7 +137,10 @@ function setup() {
           console.log('All Supabase tests passed successfully!');
           // Initialize leaderboard after Supabase is ready
           if (window.leaderboardFunctions && typeof window.leaderboardFunctions.initLeaderboard === 'function') {
+            console.log('Initializing leaderboard...');
             window.leaderboardFunctions.initLeaderboard();
+          } else {
+            console.error('Leaderboard functions not available at setup time');
           }
         } else {
           console.error('Some Supabase tests failed. Check console for details.');
@@ -428,10 +438,16 @@ async function submitEmail() {
     playerNameInput.value = '';
     listservConsent.checked = false;
     
-    // Show the leaderboard after submitting score
-    if (window.leaderboardFunctions && typeof window.leaderboardFunctions.showLeaderboardUI === 'function') {
-      window.leaderboardFunctions.showLeaderboardUI();
-    }
+    // Wait a short time to ensure the alert has been dismissed
+    setTimeout(() => {
+      // Show the leaderboard after submitting score
+      if (window.leaderboardFunctions && typeof window.leaderboardFunctions.showLeaderboardUI === 'function') {
+        console.log('Showing leaderboard after score submission');
+        window.leaderboardFunctions.showLeaderboardUI();
+      } else {
+        console.error('Leaderboard functions not available');
+      }
+    }, 500);
   } catch (error) {
     console.error('Error submitting score:', error);
     alert('There was an error submitting your score. Please try again.');
